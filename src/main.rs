@@ -1,12 +1,38 @@
+use seahorse::{App, Context, Command};
 use std::env;
 
 fn main() {
-    let mut move_list : Vec<String> = env::args().skip(1).collect();
+
+
+
+    let args: Vec<String> = env::args().collect();
+
+    let app = App::new(env!("CARGO_PKG_NAME"))
+        .description(env!("CARGO_PKG_DESCRIPTION"))
+        .author(env!("CARGO_PKG_AUTHORS"))
+        .version(env!("CARGO_PKG_VERSION"))
+        .usage("cli [args]")
+        .action(help_action)
+        .command(reverse_command());
+    app.run(args);
+
+}    
+
+fn help_action(_c: &Context) {
+    println!("usage:");
+    println!(" reverse <MOVELIST>");
+}
+
+fn reverse_command() -> Command {
+  Command::new("reverse").action(reverse_action)
+}
+
+fn reverse_action(c: &Context) {
+    let mut move_list : Vec<&str> = c.args.iter().map(|n| n.as_str()).collect();
 
     move_list.reverse();
-
-    for m in &move_list {
-        match m.as_str() {
+    for m in move_list {
+        match m {
             "R" => print!("R' "),
             "R'" => print!("R "),
 
