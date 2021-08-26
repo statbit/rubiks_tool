@@ -13,21 +13,25 @@ fn main() {
         .version(env!("CARGO_PKG_VERSION"))
         .usage("cli [args]")
         .action(help_action)
-        .command(reverse_command());
+        .command(reverse_command())
+        .command(pattern_command());
     app.run(args);
-
-}    
+}
 
 fn help_action(_c: &Context) {
     println!("usage:");
     println!(" reverse <MOVELIST>");
 }
 
+fn pattern_command() -> Command {
+    Command::new("pattern").action(rubiks_tool::cubes::actions::pattern_action)
+}
+
 fn reverse_command() -> Command {
-  Command::new("reverse").action(reverse_action)
+    Command::new("reverse").action(reverse_action)
 }
 
 fn reverse_action(c: &Context) {
-    let move_list : Vec<&str> = c.args.iter().map(|n| n.as_str()).collect();
-    rubiks_tool::three_by_three::reverse(move_list);
+    let move_list : Vec<&str> = c.args.iter().map(|n| n.as_str().split_whitespace()).flat_map(|x| x).collect();
+    rubiks_tool::cubes::three_by_three::reverse(move_list);
 }
