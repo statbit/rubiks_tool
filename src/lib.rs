@@ -6,42 +6,32 @@ pub mod cubes {
             move_list.reverse();
             for m in move_list {
                 let m = m.to_uppercase();
-                match m.as_str() {
-                    "R" => print!("R' "),
-                    "R'" => print!("R "),
-
-                    "L" => print!("L' "),
-                    "L'" => print!("L "),
-
-                    "U" => print!("U' "),
-                    "U'" => print!("U "),
-
-                    "B" => print!("B' "),
-                    "B'" => print!("B "),
-
-                    "D" => print!("D' "),
-                    "D'" => print!("D "),
-
-                    "F" => print!("F' "),
-                    "F'" => print!("F "),
-
-                    x => print!("{} ", x),
-
-                }
+                reverse_move(&m);
             }
-            println!("");
+        }
+
+        pub fn reverse_move(m : &str) {
+            let m = m.to_uppercase();
+            if m.find('2').is_some() {
+                print!("{} ", m);
+                return;
+            }
+            if m.find('\'').is_some() {
+                print!("{} ", m.replace("'", ""));
+                return;
+            }
+            print!("{}' ", m);
         }
 
         pub fn display_pattern(name: &str) {
-            match name {
-                "list" => {
-                    println!("cube-in-cube");
-                },
-                "cube-in-cube" => print!("F L F U' R U F2 L2 U' L' B D' B' L2 U"),
-                x => print!("unknown pattern: {}", x),
-            }
+            let pattern : &str = match name {
+                "list" => "cube-in-cube" ,
+                "cube-in-cube" => "F L F U' R U F2 L2 U' L' B D' B' L2 U",
+                "spots" => "E S E' S'",
+                _x => "unknown pattern",
+            };
 
-            println!("");
+            println!("{}", pattern);
         }
     }
 
