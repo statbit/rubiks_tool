@@ -28,32 +28,6 @@ fn reverse_command() -> Command {
 }
 
 fn reverse_action(c: &Context) {
-    let mut move_list : Vec<&str> = c.args.iter().map(|n| n.as_str()).collect();
-
-    move_list.reverse();
-    for m in move_list {
-        match m {
-            "R" => print!("R' "),
-            "R'" => print!("R "),
-
-            "L" => print!("L' "),
-            "L'" => print!("L "),
-
-            "U" => print!("U' "),
-            "U'" => print!("U "),
-
-            "B" => print!("B' "),
-            "B'" => print!("B "),
-
-            "D" => print!("D' "),
-            "D'" => print!("D "),
-
-            "F" => print!("F' "),
-            "F'" => print!("F "),
-
-            x => print!("{} ", x),
-
-        }
-    }
-    println!("");
+    let move_list : Vec<&str> = c.args.iter().map(|n| n.as_str()).collect();
+    rubiks_tool::three_by_three::reverse(move_list);
 }
