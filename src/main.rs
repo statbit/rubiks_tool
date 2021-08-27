@@ -1,4 +1,4 @@
-use seahorse::{App, Context, Command};
+use seahorse::{App, Context, Command, Flag, FlagType};
 use std::env;
 
 fn main() {
@@ -14,7 +14,9 @@ fn main() {
         .usage("cli [args]")
         .action(help_action)
         .command(reverse_command())
-        .command(pattern_command());
+        .command(pattern_command())
+        .flag(Flag::new("size", FlagType::Int).alias("s"))
+        ;
     app.run(args);
 }
 
