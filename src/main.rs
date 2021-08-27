@@ -1,4 +1,4 @@
-use seahorse::{App, Context, Command};
+use seahorse::{App, Context, Command, Flag, FlagType};
 use std::env;
 
 fn main() {
@@ -14,7 +14,8 @@ fn main() {
         .usage("cli [args]")
         .action(help_action)
         .command(reverse_command())
-        .command(pattern_command());
+        .command(pattern_command())
+        ;
     app.run(args);
 }
 
@@ -25,6 +26,9 @@ fn help_action(_c: &Context) {
 
 fn pattern_command() -> Command {
     Command::new("pattern").action(rubiks_tool::cubes::actions::pattern_action)
+        .flag(Flag::new("size", FlagType::Int)
+            .description("cube size flag")
+            .alias("s"))
 }
 
 fn reverse_command() -> Command {
