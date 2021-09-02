@@ -25,7 +25,7 @@ fn help_action(_c: &Context) {
 }
 
 fn pattern_command() -> Command {
-    Command::new("pattern").action(rubiks_tool::cubes::actions::pattern_action)
+    Command::new("pattern").action(rubiks_tool::actions::pattern_action)
         .flag(Flag::new("size", FlagType::Int)
             .description("cube size flag")
             .alias("s"))
