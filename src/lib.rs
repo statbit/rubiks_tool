@@ -12,6 +12,7 @@ pub mod actions {
                 3 => cubes::three_by_three::display_pattern(pattern_name),
                 4 => cubes::four_by_four::display_pattern(pattern_name),
                 5 => cubes::five_by_five::display_pattern(pattern_name),
+                6 => cubes::six_by_six::display_pattern(pattern_name),
                 _x => cubes::three_by_three::display_pattern(pattern_name),
             };
         } else {
